@@ -1,0 +1,16 @@
+create table especificacoes(
+	ID serial primary key,
+	codigo INTEGER,
+	fabricante text,
+	cor text,
+	sistema text,
+	detalhes text
+);
+
+create table produtos(
+	ID serial primary key,
+	codigo INTEGER,
+	nome text,
+	preco float,
+	cod_especificacao INTEGER
+);
