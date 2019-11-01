@@ -37,7 +37,7 @@ public class ProdutoDao{
 
         st.setInt(1, p.getEspecificacao().getCodigo());
         st.setString(2, p.getEspecificacao().getFabricante());
-        st.setString(3, p.getEspecificacao().geCor());
+        st.setString(3, p.getEspecificacao().getCor());
         st.setString(4, p.getEspecificacao().getSistema());
         st.setString(5, p.getEspecificacao().getDetalhes());
 
@@ -81,12 +81,12 @@ public class ProdutoDao{
         
         st.executeUpdate();
 
-        sql = "update especificacoes set fabricate = ?, cor = ?, sistema = ?, detalhes = ? where id = (select cod_especificacao from produtos where codigo = ?)";
+        sql = "update especificacoes set fabricante = ?, cor = ?, sistema = ?, detalhes = ? where id = (select cod_especificacao from produtos where codigo = ?)";
         
         st = con.prepareStatement(sql);
 
         st.setString(1, p.getEspecificacao().getFabricante());
-        st.setString(2, p.getEspecificacao().geCor());
+        st.setString(2, p.getEspecificacao().getCor());
         st.setString(3, p.getEspecificacao().getSistema());
         st.setString(4, p.getEspecificacao().getDetalhes());
         st.setInt(5, codigo);
@@ -134,6 +134,36 @@ public class ProdutoDao{
 
         return produto;
     }
+    
+    public List<Produto> getProdutosbyText(String text) throws SQLException{
+        sql = "select * from produtos where nome iLike ?";
+
+        con = ConnectionFactory.getConnection();
+
+        st = con.prepareStatement(sql);
+        st.setString(1, text);
+        
+        ResultSet rs = st.executeQuery();
+        List<Produto> produtos = new ArrayList<>();
+        while(rs.next()){
+            String nome = rs.getString("nome");
+            int codigo = rs.getInt("codigo");
+            float preco = rs.getFloat("preco");
+            sql = "select * from especificacoes where id = ?";
+            st = con.prepareStatement(sql);
+            st.setInt(1, rs.getInt("cod_especificacao"));
+            ResultSet rs2 = st.executeQuery();
+            Especificacao especificacao = null;
+            if(rs2.next()){
+                especificacao = new Especificacao(rs2.getInt("codigo"), rs2.getString("fabricante"), rs2.getString("cor"), rs2.getString("sistema"), rs2.getString("detalhes"));
+            }
+            produtos.add(new Produto(codigo, nome, preco, especificacao));
+        }
+
+        
+        con.close();
+        return produtos;
+    }
 
     /**
      * Metodo obtém uma lista de todos os produtos do BD.
@@ -159,7 +189,7 @@ public class ProdutoDao{
             ResultSet rs2 = st.executeQuery();
             Especificacao especificacao = null;
             if(rs2.next()){
-                especificacao = new Especificacao(rs.getInt("codigo"), rs.getString("fabricante"), rs.getString("cor"), rs.getString("sistema"), rs.getString("detalhes"));
+                especificacao = new Especificacao(rs2.getInt("codigo"), rs2.getString("fabricante"), rs2.getString("cor"), rs2.getString("sistema"), rs2.getString("detalhes"));
             }
             produtos.add(new Produto(codigo, nome, preco, especificacao));
         }
@@ -179,7 +209,7 @@ public class ProdutoDao{
         int codEspecificacao = 0;
         
         con = ConnectionFactory.getConnection();
-        sql = "select cod_especificacoes from produtos where codigo = ?";
+        sql = "select cod_especificacao from produtos where codigo = ?";
         st = con.prepareStatement(sql);
         st.setInt(1, codigo);
         rs = st.executeQuery();

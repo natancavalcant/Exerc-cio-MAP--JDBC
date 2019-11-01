@@ -37,7 +37,7 @@ public class Especificacao{
     public String getFabricante(){
         return fabricante;
     }
-    public String geCor(){
+    public String getCor(){
         return cor;
     }
     public String getSistema(){

@@ -1,12 +1,9 @@
-package br.com.map.crudproduto.UI;
+/*package br.com.map.crudproduto.UI;
 
 import br.com.map.crudproduto.model.Produto;
-import br.com.map.crudproduto.util.ConnectionFactory;
 import br.com.map.crudproduto.model.Especificacao;
 import br.com.map.crudproduto.dao.ProdutoDao;
 import java.util.*;
-import java.sql.PreparedStatement;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Main{
@@ -49,8 +46,6 @@ public class Main{
             }
             if(alt == 1){
                 break;
-            }else if(alt ==  2){
-                continue;    
             }
         }
     }
@@ -102,7 +97,7 @@ public class Main{
     public static void Exibir() throws SQLException{
         ProdutoDao BD = new ProdutoDao();
 
-        List<Produtos> produtos = new ArrayList<>();
+        List<Produto> produtos;
         produtos = BD.listProdutos();
 
         for(Produto p: produtos){
@@ -119,11 +114,11 @@ public class Main{
         imprimeProduto(BD.getProduto(cod));
     }
 
-    private static void imprimeProduto(Produto p){
+    public static void imprimeProduto(Produto p){
         System.out.println("--------------------------------------");
-        System.out.println("Codigo: " + p.getCodigo);
-        System.out.println("Nome: " + p.getNome);
-        System.out.println("Preço: "eu + p.getPreco);
+        System.out.println("Codigo: " + p.getCodigo());
+        System.out.println("Nome: " + p.getNome());
+        System.out.println("Preço: " + p.getPreco());
         System.out.println("Código: " + p.getEspecificacao().getCodigo());
         System.out.println("Fabricante: " + p.getEspecificacao().getFabricante());
         System.out.println("Cor: " + p.getEspecificacao().getCor());
@@ -140,4 +135,4 @@ public class Main{
         BD.deletar(cod);
     }
 }
-
+*/
