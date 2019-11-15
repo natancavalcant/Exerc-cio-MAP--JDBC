@@ -1,16 +1,15 @@
 create table especificacoes(
 	ID serial primary key,
-	codigo INTEGER,
-	fabricante text,
-	cor text,
-	sistema text,
+	fabricante varchar(30),
+	cor varchar(15),
+	sistema varchar(20),
 	detalhes text
 );
 
 create table produtos(
 	ID serial primary key,
-	codigo INTEGER,
-	nome text,
+	nome varchar(30),
 	preco float,
-	cod_especificacao INTEGER
+	cod_especificacao INTEGER,
+	foreign key (cod_especificacao) references especificacoes (ID)
 );

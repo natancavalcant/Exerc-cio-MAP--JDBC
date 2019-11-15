@@ -9,7 +9,11 @@ public class Especificacao{
     }
     
     public Especificacao(int codigo, String fabricante, String cor, String sistema, String detalhes){
-        this.codigo = codigo;
+        if(codigo!= 0){
+            this.codigo = codigo;
+        }else{
+            this.codigo = 0;
+        }
         this.fabricante = fabricante;
         this.cor = cor;
         this.sistema = sistema;

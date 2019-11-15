@@ -7,12 +7,13 @@ package br.com.map.crudproduto.UI;
 
 import br.com.map.crudproduto.dao.ProdutoDao;
 import br.com.map.crudproduto.model.Produto;
+import br.com.map.crudproduto.util.MensagensUtil;
 import java.awt.HeadlessException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -21,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class HomeScreen extends javax.swing.JFrame {
     
     private ProdutoDao produtoDao;
+    
     Produto produtoSelecionado;
     /**
      * Creates new form HomeScreen
@@ -29,10 +31,20 @@ public class HomeScreen extends javax.swing.JFrame {
         produtoDao = new ProdutoDao();
         produtoSelecionado = null;
         this.setTitle("Cadastrar produtos");
-        initComponents();        
+        initComponents(); 
+        setLanguage();
         preencheTable(null);
     }
     
+    void setLanguage(){
+        this.PesquisarButton.setText(MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_BUTTON_PESQUISA));
+        this.InserirButton.setText(MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_BUTTON_INSERIR));
+        this.ExibirButton.setText(MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_BUTTON_EXIBIR));
+        this.EditarButton.setText(MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_BUTTON_EDITAR));
+        this.RemoverButton.setText(MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_BUTTON_REMOVER));
+        this.SairButton.setText(MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_BUTTON_SAIR));
+        this.NomeBuscaText.setText(MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_PESQUISA));
+    }
     public void preencheTable(List<Produto> lista){
         try {
 
@@ -55,7 +67,7 @@ public class HomeScreen extends javax.swing.JFrame {
             
 
             model.setColumnCount(8);
-            model.setColumnIdentifiers(new String[]{"Código", "Nome", "Preco", "Especificacao","Fabricante", "Cor", "SO", "Detalhes"});
+            model.setColumnIdentifiers(new String[]{MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_CODIGO), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_NOME), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_PRECO), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_FABRICANTE), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_COR), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_SISTEMA), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_DETALHES)});
             model.setRowCount(produtos.size());
             
             for (int i = 0; i < produtos.size(); i++) {
@@ -65,18 +77,17 @@ public class HomeScreen extends javax.swing.JFrame {
                 model.setValueAt(p.getCodigo(), i, 0);
                 model.setValueAt(p.getNome(), i, 1);
                 model.setValueAt(p.getPreco(), i, 2);
-                model.setValueAt(p.getEspecificacao().getCodigo(), i, 3);
-                model.setValueAt(p.getEspecificacao().getFabricante(), i, 4);
-                model.setValueAt(p.getEspecificacao().getCor(), i, 5);
-                model.setValueAt(p.getEspecificacao().getSistema(), i, 6);
-                model.setValueAt(p.getEspecificacao().getDetalhes(), i, 7);
+                model.setValueAt(p.getEspecificacao().getFabricante(), i, 3);
+                model.setValueAt(p.getEspecificacao().getCor(), i, 4);
+                model.setValueAt(p.getEspecificacao().getSistema(), i, 5);
+                model.setValueAt(p.getEspecificacao().getDetalhes(), i, 6);
                 
             }
 
             ProdutosTable.setModel(model);
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_ERRO_TABELA) + ex.getMessage());
         }
     }
 
@@ -96,6 +107,7 @@ public class HomeScreen extends javax.swing.JFrame {
         SairButton = new javax.swing.JButton();
         LabelNome = new javax.swing.JLabel();
         ExibirButton = new javax.swing.JButton();
+        lingua = new javax.swing.JComboBox<>();
         PainelTable = new javax.swing.JPanel();
         ScrollTable = new javax.swing.JScrollPane();
         ProdutosTable = new javax.swing.JTable();
@@ -146,32 +158,41 @@ public class HomeScreen extends javax.swing.JFrame {
             }
         });
 
+        lingua.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pt_BR", "en_US", "de_DE", "fr_FR" }));
+        lingua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                linguaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelButtonsLayout = new javax.swing.GroupLayout(painelButtons);
         painelButtons.setLayout(painelButtonsLayout);
         painelButtonsLayout.setHorizontalGroup(
             painelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelButtonsLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(painelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelButtonsLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(LabelNome)
-                        .addGap(0, 11, Short.MAX_VALUE))
-                    .addGroup(painelButtonsLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(painelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ExibirButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SairButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(RemoverButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(EditarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(InserirButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(ExibirButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SairButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(RemoverButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(EditarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(InserirButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(painelButtonsLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(LabelNome)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(painelButtonsLayout.createSequentialGroup()
+                .addComponent(lingua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         painelButtonsLayout.setVerticalGroup(
             painelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelButtonsLayout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(lingua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LabelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(44, 44, 44)
                 .addComponent(InserirButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EditarButton)
@@ -267,6 +288,7 @@ public class HomeScreen extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void InserirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InserirButtonActionPerformed
@@ -278,7 +300,7 @@ public class HomeScreen extends javax.swing.JFrame {
         try{
             if(produtoSelecionado != null){
                 
-                int alt = JOptionPane.showConfirmDialog(this, "Excluir o produto " + produtoSelecionado.getCodigo()+": "+ produtoSelecionado.getNome() + "?", "Excluir", JOptionPane.OK_CANCEL_OPTION);
+                int alt = JOptionPane.showConfirmDialog(this, MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_MENSAGEM_EXCLUIR) + produtoSelecionado.getCodigo()+": "+ produtoSelecionado.getNome() + "?", "sim", JOptionPane.OK_CANCEL_OPTION);
                 
                 if(alt == JOptionPane.OK_OPTION){
                     produtoDao.deletar(produtoSelecionado.getCodigo());
@@ -287,7 +309,7 @@ public class HomeScreen extends javax.swing.JFrame {
                 }
             }
         }catch (HeadlessException | SQLException e){
-            JOptionPane.showMessageDialog(this, "Error: "+ e);
+            JOptionPane.showMessageDialog(this, MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_ERRO_ALTERAR)+ e);
         }
     }//GEN-LAST:event_RemoverButtonActionPerformed
 
@@ -297,7 +319,7 @@ public class HomeScreen extends javax.swing.JFrame {
             editar.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(this, "Selecione um cliente!");
+            JOptionPane.showMessageDialog(this, MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_ERRO_ALTERAR));
         }
     }//GEN-LAST:event_EditarButtonActionPerformed
 
@@ -311,15 +333,39 @@ public class HomeScreen extends javax.swing.JFrame {
             List<Produto> produtos = produtoDao.getProdutosbyText(text);
             preencheTable(produtos);
         }catch (SQLException e){
-            JOptionPane.showMessageDialog(this, "Erro: "+ e);
+            JOptionPane.showMessageDialog(this, MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_ERRO_PESQUISAR)+ e);
         }
     }//GEN-LAST:event_PesquisarButtonActionPerformed
 
     private void ExibirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExibirButtonActionPerformed
         preencheTable(null);
     }//GEN-LAST:event_ExibirButtonActionPerformed
+//seleciona a linguagem
+    private void linguaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_linguaActionPerformed
+        String s = (String) lingua.getSelectedItem();
+        //System.out.println(s);
+        switch(s){
+            case "pt_BR":
+                MensagensUtil.setLocale(MensagensUtil.PT_BR);
+                break;
+            case "en_US":
+                MensagensUtil.setLocale(MensagensUtil.EN_US);
+                break;
+            case "fr_FR":
+                MensagensUtil.setLocale(MensagensUtil.FR_FR);
+                break;
+            case "de_DE":
+                MensagensUtil.setLocale(MensagensUtil.DE_DE);
+                break;
+            default:
+                MensagensUtil.setLocale(MensagensUtil.PT_BR);
+                break;
+        }
+        setLanguage();
+        preencheTable(null);
+    }//GEN-LAST:event_linguaActionPerformed
     private void ProdutosTableMouseClicked(java.awt.event.MouseEvent evt) {                                           
-       
+      
         try {
             //duploclick
             if(evt.getClickCount() == 2){
@@ -329,7 +375,7 @@ public class HomeScreen extends javax.swing.JFrame {
                 ProdutoView Visualizar = new ProdutoView(p);
                 Visualizar.setVisible(true);
             }
-            // decobre a linha do clique
+            // descobre a linha do clique
             int linha = ProdutosTable.rowAtPoint(evt.getPoint());
             // pegar o codigo do produto da linha selecionada
             int codigo = (int) ProdutosTable.getModel().getValueAt(linha, 0);
@@ -339,7 +385,7 @@ public class HomeScreen extends javax.swing.JFrame {
             //System.out.println(produtoSelecionado);
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this,"Erros: "+ e);
+            JOptionPane.showMessageDialog(this,MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_ERRO_TABELA)+ e);
         }
     }
     /**
@@ -391,6 +437,7 @@ public class HomeScreen extends javax.swing.JFrame {
     private javax.swing.JButton RemoverButton;
     private javax.swing.JButton SairButton;
     private javax.swing.JScrollPane ScrollTable;
+    private javax.swing.JComboBox<String> lingua;
     private javax.swing.JPanel painelButtons;
     // End of variables declaration//GEN-END:variables
 }

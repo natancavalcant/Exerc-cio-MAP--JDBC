@@ -9,9 +9,9 @@ import java.sql.SQLException;
  */
 public class ConnectionFactory {
     
-    private static final String URL = "jdbc:postgresql://localhost:5432/atividade-map";
-    private static final String USER = "postgres";
-    private static final String PASSWORD= "admin";
+    private static final String URL = ConfigUtil.getConfig(ConfigUtil.CONFIG_JDBC_URL);
+    private static final String USER = ConfigUtil.getConfig(ConfigUtil.CONFIG_JDBC_USUARIO);
+    private static final String PASSWORD = ConfigUtil.getConfig(ConfigUtil.CONFIG_JDBC_SENHA);
     
     public static Connection getConnection(){
         try{

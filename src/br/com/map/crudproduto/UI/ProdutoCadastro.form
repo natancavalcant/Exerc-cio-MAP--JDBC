@@ -8,7 +8,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -90,33 +90,24 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="ProdutoJFameTitle" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                       <Component id="LabelNome" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="LabelPreco" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="NomeText" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="PrecoText" alignment="0" pref="227" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="LabelCodigoP" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="LabelCodigoP" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="CodigoPText" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="CodigoPText" pref="227" max="32767" attributes="0"/>
+                                  <Component id="NomeText" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="PrecoText" alignment="0" pref="227" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
-                              <Component id="CancelarButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="CadastrarButton" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -125,14 +116,12 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="LabelFabricante" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="TextCodigoE" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="LabelCor" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="LabelSistema" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="LabelDetalhes" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="CodigoEText" alignment="0" max="32767" attributes="0"/>
                                   <Component id="FabricanteText" alignment="0" max="32767" attributes="0"/>
                                   <Component id="CorText" alignment="0" max="32767" attributes="0"/>
                                   <Component id="SistemaText" alignment="0" max="32767" attributes="0"/>
@@ -141,6 +130,13 @@
                                       <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="CancelarButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="CadastrarButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -152,14 +148,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="ProdutoJFameTitle" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="TextCodigoE" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="CodigoEText" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="LabelFabricante" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="FabricanteText" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -180,17 +174,16 @@
                                       <Component id="LabelDetalhes" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jScrollPane1" alignment="0" pref="126" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="0" pref="134" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="CadastrarButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="CancelarButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="ProdutoJFameTitle" min="-2" pref="31" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="LabelCodigoP" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="CodigoPText" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -205,10 +198,9 @@
                                   <Component id="LabelPreco" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="PrecoText" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="205" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -222,11 +214,6 @@
             <Component class="javax.swing.JLabel" name="LabelPreco">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pre&#xe7;o"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="TextCodigoE">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="LabelFabricante">
@@ -275,7 +262,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="LabelDetalhes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Detalhes:"/>
+                <Property name="text" type="java.lang.String" value="Detalhes(*):"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="CodigoPText">
@@ -283,8 +270,6 @@
             <Component class="javax.swing.JTextField" name="NomeText">
             </Component>
             <Component class="javax.swing.JTextField" name="PrecoText">
-            </Component>
-            <Component class="javax.swing.JTextField" name="CodigoEText">
             </Component>
             <Component class="javax.swing.JTextField" name="FabricanteText">
             </Component>
