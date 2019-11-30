@@ -7,12 +7,19 @@ package br.com.map.crudproduto.UI;
 
 import br.com.map.crudproduto.dao.ProdutoDao;
 import br.com.map.crudproduto.model.Produto;
+import br.com.map.crudproduto.reports.ReportsManager;
 import br.com.map.crudproduto.util.MensagensUtil;
 import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 
 
 /**
@@ -20,8 +27,10 @@ import javax.swing.table.DefaultTableModel;
  * @author natan
  */
 public class HomeScreen extends javax.swing.JFrame {
+            
     
     private ProdutoDao produtoDao;
+    private int opcaoRelatorio;
     
     Produto produtoSelecionado;
     /**
@@ -30,9 +39,11 @@ public class HomeScreen extends javax.swing.JFrame {
     public HomeScreen() {
         produtoDao = new ProdutoDao();
         produtoSelecionado = null;
+        opcaoRelatorio = 0;
         this.setTitle("Cadastrar produtos");
         initComponents(); 
         setLanguage();
+        ComboRelatorios.setModel(new DefaultComboBoxModel<>(new String[] { MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_COMBO_TODOS), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_COMBO_MAIORES), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_COMBO_WINDOWS) }));
         preencheTable(null);
     }
     
@@ -66,7 +77,7 @@ public class HomeScreen extends javax.swing.JFrame {
             
             
 
-            model.setColumnCount(8);
+            model.setColumnCount(7);
             model.setColumnIdentifiers(new String[]{MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_CODIGO), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_NOME), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_PRECO), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_FABRICANTE), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_COR), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_SISTEMA), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_DETALHES)});
             model.setRowCount(produtos.size());
             
@@ -108,6 +119,9 @@ public class HomeScreen extends javax.swing.JFrame {
         LabelNome = new javax.swing.JLabel();
         ExibirButton = new javax.swing.JButton();
         lingua = new javax.swing.JComboBox<>();
+        RelatoriosLabel = new javax.swing.JLabel();
+        ComboRelatorios = new javax.swing.JComboBox<>();
+        GerarRelatorioButton = new javax.swing.JButton();
         PainelTable = new javax.swing.JPanel();
         ScrollTable = new javax.swing.JScrollPane();
         ProdutosTable = new javax.swing.JTable();
@@ -165,26 +179,51 @@ public class HomeScreen extends javax.swing.JFrame {
             }
         });
 
+        RelatoriosLabel.setText("Relatórios:");
+
+        ComboRelatorios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos os Produtos", "Produtos maiores que 1000", "Produtos com sistema windows" }));
+        ComboRelatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboRelatoriosActionPerformed(evt);
+            }
+        });
+
+        GerarRelatorioButton.setText("Gerar Relatorio");
+        GerarRelatorioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GerarRelatorioButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelButtonsLayout = new javax.swing.GroupLayout(painelButtons);
         painelButtons.setLayout(painelButtonsLayout);
         painelButtonsLayout.setHorizontalGroup(
             painelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelButtonsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ExibirButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SairButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(RemoverButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                    .addComponent(EditarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(InserirButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(painelButtonsLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(LabelNome)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(painelButtonsLayout.createSequentialGroup()
                 .addComponent(lingua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(painelButtonsLayout.createSequentialGroup()
+                .addGroup(painelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelButtonsLayout.createSequentialGroup()
+                        .addGroup(painelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelButtonsLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(LabelNome))
+                            .addGroup(painelButtonsLayout.createSequentialGroup()
+                                .addGap(69, 69, 69)
+                                .addComponent(RelatoriosLabel)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(painelButtonsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(painelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ExibirButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SairButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(RemoverButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(EditarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(InserirButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ComboRelatorios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(GerarRelatorioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         painelButtonsLayout.setVerticalGroup(
             painelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +231,7 @@ public class HomeScreen extends javax.swing.JFrame {
                 .addComponent(lingua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LabelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(InserirButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EditarButton)
@@ -200,8 +239,15 @@ public class HomeScreen extends javax.swing.JFrame {
                 .addComponent(RemoverButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ExibirButton)
+                .addGap(27, 27, 27)
+                .addComponent(RelatoriosLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ComboRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GerarRelatorioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(SairButton))
+                .addComponent(SairButton)
+                .addGap(14, 14, 14))
         );
 
         ProdutosTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -256,7 +302,7 @@ public class HomeScreen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(PainelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BuscarPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)))
+                    .addComponent(ScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)))
         );
         PainelTableLayout.setVerticalGroup(
             PainelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,6 +410,44 @@ public class HomeScreen extends javax.swing.JFrame {
         setLanguage();
         preencheTable(null);
     }//GEN-LAST:event_linguaActionPerformed
+
+    private void ComboRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboRelatoriosActionPerformed
+        this.opcaoRelatorio = ComboRelatorios
+    }//GEN-LAST:event_ComboRelatoriosActionPerformed
+
+    private void GerarRelatorioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GerarRelatorioButtonActionPerformed
+        try{
+            List<Produto> produtos;
+            
+            switch(opcaoRelatorio){
+             
+                case 0:
+                    produtos = produtoDao.listProdutos(); 
+                    break;
+                case 1:
+                    produtos = produtoDao.listProdutosPorPreco((float) 1000);
+                    break;
+                case 2:
+                    produtos = produtoDao.listProdutosPorSistema("Windows"); 
+                    break;
+                default:
+                    produtos = null;
+        }
+            
+            JasperPrint relatorio;
+            relatorio = ReportsManager.escreverRelatorio(produtos);
+            
+            JRViewer view = new JRViewer(relatorio);
+            
+            JFrame janela = new JFrame();
+            janela.add(view);
+            janela.setSize(800, 600);
+            janela.setVisible(true);
+            
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "error "+ e);
+        }
+    }//GEN-LAST:event_GerarRelatorioButtonActionPerformed
     private void ProdutosTableMouseClicked(java.awt.event.MouseEvent evt) {                                           
       
         try {
@@ -426,14 +510,17 @@ public class HomeScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BuscarPanel;
     private javax.swing.JTextField BuscarText;
+    private javax.swing.JComboBox<String> ComboRelatorios;
     private javax.swing.JButton EditarButton;
     private javax.swing.JButton ExibirButton;
+    private javax.swing.JButton GerarRelatorioButton;
     private javax.swing.JButton InserirButton;
     private javax.swing.JLabel LabelNome;
     private javax.swing.JLabel NomeBuscaText;
     private javax.swing.JPanel PainelTable;
     private javax.swing.JButton PesquisarButton;
     private javax.swing.JTable ProdutosTable;
+    private javax.swing.JLabel RelatoriosLabel;
     private javax.swing.JButton RemoverButton;
     private javax.swing.JButton SairButton;
     private javax.swing.JScrollPane ScrollTable;

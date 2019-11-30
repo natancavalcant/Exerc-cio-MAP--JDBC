@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/estudos/java/Cadastro%20de%20Produtos%20em%20BD-map/src/br/com/map/crudproduto/UI/HomeScreen.java</file>
+            <file>file:/D:/estudos/java/Cadastro-de-Produtos-em-BD-map/src/br/com/map/crudproduto/model/Especificacao.java</file>
+            <file>file:/D:/estudos/java/Cadastro-de-Produtos-em-BD-map/src/mensagens_pt_BR.properties</file>
+            <file>file:/D:/estudos/java/Cadastro-de-Produtos-em-BD-map/src/br/com/map/crudproduto/UI/HomeScreen.java</file>
+            <file>file:/D:/estudos/java/Cadastro-de-Produtos-em-BD-map/src/mensagens_de_DE.properties</file>
+            <file>file:/D:/estudos/java/Cadastro-de-Produtos-em-BD-map/src/mensagens_en_US.properties</file>
+            <file>file:/D:/estudos/java/Cadastro-de-Produtos-em-BD-map/test/Test.java</file>
+            <file>file:/D:/estudos/java/Cadastro-de-Produtos-em-BD-map/src/mensagens_fr_FR.properties</file>
+            <file>file:/D:/estudos/java/Cadastro-de-Produtos-em-BD-map/src/br/com/map/crudproduto/util/MensagensUtil.java</file>
         </group>
     </open-files>
 </project-private>

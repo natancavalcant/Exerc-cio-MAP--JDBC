@@ -233,5 +233,58 @@ public class ProdutoDao{
         con.close();
 
     }
+    public List<Produto> listProdutosPorPreco(float valor) throws SQLException{
+        sql = "select * from produtos where preco >= ?";
+
+        con = ConnectionFactory.getConnection();
+
+        st = con.prepareStatement(sql);
+        st.setFloat(0, valor);
+        
+        ResultSet rs = st.executeQuery();
+        List<Produto> produtos = new ArrayList<>();
+        while(rs.next()){
+            String nome = rs.getString("nome");
+            int codigo = rs.getInt("id");
+            float preco = rs.getFloat("preco");
+            sql = "select * from especificacoes where id = ?";
+            st = con.prepareStatement(sql);
+            st.setInt(1, rs.getInt("cod_especificacao"));
+            ResultSet rs2 = st.executeQuery();
+            Especificacao especificacao = null;
+            if(rs2.next()){
+                especificacao = new Especificacao(rs2.getInt("id"), rs2.getString("fabricante"), rs2.getString("cor"), rs2.getString("sistema"), rs2.getString("detalhes"));
+            }
+            produtos.add(new Produto(codigo, nome, preco, especificacao));
+        }
+
+        
+        con.close();
+        return produtos;
+    }
+    
+    public List<Produto> listProdutosPorSistema(String sistema) throws SQLException{
+        sql = "select * from produtos, especificacoes where produtos.cod_especificacao = especificacoes.id and especificacoes.sistema = ?";
+        
+        con = ConnectionFactory.getConnection();
+
+        st = con.prepareStatement(sql);
+        st.setString(0, sistema);
+        
+        ResultSet rs = st.executeQuery();
+        List<Produto> produtos = new ArrayList<>();
+        while(rs.next()){
+            String nome = rs.getString("nome");
+            int codigo = rs.getInt("produtos.id");
+            float preco = rs.getFloat("preco");
+            Especificacao especificacao = null;
+            especificacao = new Especificacao(rs.getInt("especificacoes.id"), rs.getString("fabricante"), rs.getString("cor"), rs.getString("sistema"), rs.getString("detalhes"));
+            produtos.add(new Produto(codigo, nome, preco, especificacao));
+        }
+
+        
+        con.close();
+        return produtos;
+    }
     
 }

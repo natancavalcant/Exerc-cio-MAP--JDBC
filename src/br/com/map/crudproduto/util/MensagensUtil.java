@@ -41,6 +41,12 @@ public class MensagensUtil {
     public static final String MENSAGEM_LABEL_DETALHES = "msn.label.detalhes";
     public static final String MENSAGEM_LABEL_MENSAGEM_EXCLUIR = "msn.label.mensagem.Excluir";
     public static final String MENSAGEM_LABEL_PESQUISA = "msn.label.pesquisa";
+    public static final String MENSAGEM_LABEL_RELATORIO = "msn.label.relatorio";
+    
+    public static final String MENSAGEM_COMBO_TODOS = "msn.combo.todos";
+    public static final String MENSAGEM_COMBO_MAIORES = "msn.combo.maiores";
+    public static final String MENSAGEM_COMBO_WINDOWS = "msn.combo.windows";
+    
     
     public static final String MENSAGEM_TEXT_CODIGO = "msn.text.codigo";
     
@@ -52,6 +58,7 @@ public class MensagensUtil {
     public static final String MENSAGEM_BUTTON_SAIR = "msn.button.sair";
     public static final String MENSAGEM_BUTTON_CANCELAR = "msn.button.cancelar";
     public static final String MENSAGEM_BUTTON_SALVAR = "msn.button.salvar";
+    public static final String MENSAGEM_BUTTON_GERAR_RELATORIO = "msn.button.gerarRelatorio";
     public static final String MENSAGEM_BUTTON_PESQUISA = "msn.button.pesquisa";
     
     

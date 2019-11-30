@@ -44,4 +44,17 @@ public class Produto{
     public Especificacao getEspecificacao(){
         return especificacao;
     }
+    
+    public String getFabricante(){
+        return especificacao.getFabricante();
+    }
+    public String getCor(){
+        return especificacao.getCor();
+    }
+    public String getSistema(){
+        return especificacao.getSistema();
+    }
+    public String getDetalhes(){
+        return especificacao.getDetalhes();
+    }
 }
