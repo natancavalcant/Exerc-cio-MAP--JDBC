@@ -42,8 +42,7 @@ public class HomeScreen extends javax.swing.JFrame {
         opcaoRelatorio = 0;
         this.setTitle("Cadastrar produtos");
         initComponents(); 
-        setLanguage();
-        ComboRelatorios.setModel(new DefaultComboBoxModel<>(new String[] { MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_COMBO_TODOS), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_COMBO_MAIORES), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_COMBO_WINDOWS) }));
+        setLanguage();        
         preencheTable(null);
     }
     
@@ -55,6 +54,8 @@ public class HomeScreen extends javax.swing.JFrame {
         this.RemoverButton.setText(MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_BUTTON_REMOVER));
         this.SairButton.setText(MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_BUTTON_SAIR));
         this.NomeBuscaText.setText(MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_LABEL_PESQUISA));
+        this.GerarRelatorioButton.setText(MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_BUTTON_GERAR_RELATORIO));
+        ComboRelatorios.setModel(new DefaultComboBoxModel<>(new String[] { MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_COMBO_TODOS), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_COMBO_MAIORES), MensagensUtil.getMensagem(MensagensUtil.MENSAGEM_COMBO_WINDOWS) }));
     }
     public void preencheTable(List<Produto> lista){
         try {
@@ -412,7 +413,7 @@ public class HomeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_linguaActionPerformed
 
     private void ComboRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboRelatoriosActionPerformed
-        this.opcaoRelatorio = ComboRelatorios
+        this.opcaoRelatorio = ComboRelatorios.getSelectedIndex();
     }//GEN-LAST:event_ComboRelatoriosActionPerformed
 
     private void GerarRelatorioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GerarRelatorioButtonActionPerformed

@@ -170,7 +170,7 @@ public class ProdutoDao{
      */
 
     public List<Produto> listProdutos() throws SQLException{
-        sql = "select * from produtos";
+        sql = "select * from produtos order by nome";
 
         con = ConnectionFactory.getConnection();
 
@@ -234,7 +234,7 @@ public class ProdutoDao{
 
     }
     public List<Produto> listProdutosPorPreco(float valor) throws SQLException{
-        sql = "select * from produtos where preco >= ?";
+        sql = "select * from produtos where preco >= ? order by nome";
 
         con = ConnectionFactory.getConnection();
 
@@ -264,7 +264,7 @@ public class ProdutoDao{
     }
     
     public List<Produto> listProdutosPorSistema(String sistema) throws SQLException{
-        sql = "select * from produtos, especificacoes where produtos.cod_especificacao = especificacoes.id and especificacoes.sistema = ?";
+        sql = "select * from produtos, especificacoes where produtos.cod_especificacao = especificacoes.id and especificacoes.sistema = ? order by nome";
         
         con = ConnectionFactory.getConnection();
 
